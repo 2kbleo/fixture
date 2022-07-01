@@ -109,37 +109,44 @@ function uploadMatch () {
   console.log(partidos)
 }
 
-function updateTable (partidos, table) {
-  partidos.forEach(element => {
-    let wins, lose, goalW, goalL
+function updateTable( partidos, tabla ) {
 
-    if (element.goalsA > element.goalsB) {
-      wins = element.eA
-      lose = element.eB
-      goalW = element.goalsA
-      goalL = element.goalsB
+  const table = { ...tabla };
+
+  partidos.forEach( element => {
+
+    let wins, lose, goalW, goalL;
+
+    if ( element.goalsA > element.goalsB ) {
+
+      wins = element.eA;
+      lose = element.eB;
+      goalW = element.goalsA;
+      goalL = element.goalsB;
+
     } else if (element.goalsA < element.goalsB) {
-      wins = element.eB
-      lose = element.eA
-      goalW = element.goalsB
-      goalL = element.goalsA
+        wins = element.eB;
+        lose = element.eA;
+        goalW = element.goalsB;
+        goalL = element.goalsA;
+
     } else {
-      const teamB = table.find(t => t.id === element.eB)
-      const teamA = table.find(t => t.id === element.eA)
-      teamA.score = teamA.score + 1
-      teamB.score = teamB.score + 1
-      teamA.draw = teamA.draw + 1
-      teamB.draw = teamB.draw + 1
-      teamA.pj = teamA.pj + 1
-      teamB.pj = teamB.pj + 1
-      teamA.gf = teamA.gf + element.goalsA
-      teamB.gf = teamB.gf + element.goalsB
-      teamA.gc = teamA.gc + element.goalsB
-      teamB.gc = teamB.gc + element.goalsA
-      teamA.dg = teamA.gf - teamA.gc
-      teamA.dg = teamB.gf - teamB.gc
-      return
-    }
+        let teamB = table.find(t => t.id === element.eB );    
+        let teamA = table.find(t => t.id === element.eA );
+          teamA.score = teamA.score + 1;
+          teamB.score = teamB.score + 1;
+          teamA.draw = teamA.draw + 1;
+          teamB.draw = teamB.draw + 1;
+          teamA.pj = teamA.pj + 1;
+          teamB.pj = teamB.pj + 1;
+          teamA.gf = teamA.gf + element.goalsA;
+          teamB.gf = teamB.gf + element.goalsB;      
+          teamA.gc = teamA.gc + element.goalsB;
+          teamB.gc = teamB.gc + element.goalsA;
+          teamA.dg = teamA.gf - teamA.gc;
+          teamA.dg = teamB.gf - teamB.gc;
+          return
+      }
 
     const winss = table.find(r => r.id === wins)
     const lost = table.find(r => r.id === lose)
@@ -159,12 +166,12 @@ function updateTable (partidos, table) {
 }
 
 function sortTableByField (table, field) {
-  table.sort(function (x, y, j, k) {
-    const firstScore = (x[field])
-    const secondScore = (y[field])
+  table.sort(function (x, y) {
+    var firstScore = (x[field])
+    var secondScore = (y[field])
 
-    if (firstScore > secondScore) return -1
-    return 0
+    if (firstScore > secondScore) return -1;
+    return 0;
   })
 }
 
